@@ -14,6 +14,10 @@
             name="onDelete"
             type="android.view.View.OnClickListener" />
 
+        <variable
+            name="onEdit"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +34,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginRight="5dp"
+            android:onClick="@{onEdit}"
+            app:layout_constraintRight_toLeftOf="@+id/buttonDelete"
+
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
         <Button
             android:id="@+id/buttonDelete"
             android:layout_width="wrap_content"
@@ -38,6 +55,8 @@
             android:onClick="@{onDelete}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

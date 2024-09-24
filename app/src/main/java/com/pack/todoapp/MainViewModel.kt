@@ -1,22 +1,33 @@
 package com.pack.todoapp
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
-    private val _tasks = MutableLiveData<MutableList<Task>>(mutableListOf())
-    val tasks: LiveData<MutableList<Task>> get() = _tasks
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 
-    fun addTask(taskName: String) {
-        if (taskName.isNotEmpty()) {
-            _tasks.value?.add(Task(taskName))
-            _tasks.value = _tasks.value // Trigger update
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private val taskDao = AppDatabase.getDatabase(application).taskDao()
+    val tasks: LiveData<List<Task>> = taskDao.getAllTasks()
+
+    fun addTask(name: String, detail: String, startDate: Long, endDate: Long) {
+        val newTask = Task(name = name, detail = detail, startDate = startDate, endDate = endDate)
+        viewModelScope.launch {
+            taskDao.insert(newTask)
         }
     }
 
-    fun deleteTask(position: Int) {
-        _tasks.value?.removeAt(position)
-        _tasks.value = _tasks.value // Trigger update
+    fun updateTask(task: Task) {
+        viewModelScope.launch {
+            taskDao.update(task)
+        }
+    }
+
+    fun deleteTask(task: Task) {
+        viewModelScope.launch {
+            taskDao.delete(task)
+        }
     }
 }
