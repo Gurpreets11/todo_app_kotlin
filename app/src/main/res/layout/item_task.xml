@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="task"
             type="com.pack.todoapp.Task" />
@@ -23,6 +24,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_bg"
+        android:layout_margin="3dp"
         android:padding="8dp">
 
         <TextView
@@ -30,32 +33,41 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{task.name}"
-            app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textViewTaskDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{task.detail}"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTask" />
 
         <Button
             android:id="@+id/buttonEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:onClick="@{onEdit}"
+            android:text="Edit"
             app:layout_constraintRight_toLeftOf="@+id/buttonDelete"
-
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewTaskDetail" />
 
 
         <Button
             android:id="@+id/buttonDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
             android:onClick="@{onDelete}"
+            android:text="Delete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
+            app:layout_constraintTop_toBottomOf="@+id/textViewTaskDetail" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

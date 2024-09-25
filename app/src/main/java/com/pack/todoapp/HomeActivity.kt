@@ -2,6 +2,7 @@ package com.pack.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,20 +16,15 @@ class HomeActivity : AppCompatActivity() {
     private var currentEditingTask: Task? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_home)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-
-
         taskAdapter = TaskAdapter(viewModel.tasks.value ?: emptyList()) { task, isEdit ->
             if (isEdit) {
                 // Handle editing
-                binding.editTextTask.setText(task.name)
-                // Populate other fields for editing
-                // Assuming you have other EditTexts for detail, startDate, endDate
-                // binding.editTextDetail.setText(task.detail)
+                binding.taskNameET.setText(task.name)
+                binding.taskDetailET.setText(task.detail)
                 // binding.editTextStartDate.setText(formatDate(task.startDate))
                 // binding.editTextEndDate.setText(formatDate(task.endDate))
                 currentEditingTask = task
@@ -50,31 +46,40 @@ class HomeActivity : AppCompatActivity() {
             binding.editTextTask.text.clear()*/
 
 
-
-            val taskName = binding.editTextTask.text.toString()
-            // Get other details from the UI
-            val taskDetail = "Detail here" // Update with actual data
-            val taskStartDate = System.currentTimeMillis() // Update with actual start date
-            val taskEndDate = System.currentTimeMillis() // Update with actual end date
-
-            if (currentEditingTask == null) {
-                // Add new task
-                viewModel.addTask(taskName, taskDetail, taskStartDate, taskEndDate)
+            if (binding.taskNameET.text.toString() == null || binding.taskNameET.text.toString() == "") {
+                Toast.makeText(this, "Enter task", Toast.LENGTH_SHORT).show()
+            } else if (binding.taskDetailET.text.toString() == null || binding.taskDetailET.text.toString() == "") {
+                Toast.makeText(this, "Enter task detail", Toast.LENGTH_SHORT).show()
             } else {
-                // Update existing task
-                currentEditingTask?.let {
-                    it.name = taskName
-                    it.detail = taskDetail
-                    it.startDate = taskStartDate
-                    it.endDate = taskEndDate
-                    viewModel.updateTask(it)
+
+                val taskName = binding.taskNameET.text.toString()
+                // Get other details from the UI
+                val taskDetail = binding.taskDetailET.text.toString() // Update with actual data
+                val taskStartDate = System.currentTimeMillis() // Update with actual start date
+                val taskEndDate = System.currentTimeMillis() // Update with actual end date
+
+                if (currentEditingTask == null) {
+                    // Add new task
+                    viewModel.addTask(taskName, taskDetail, taskStartDate, taskEndDate)
+                } else {
+                    // Update existing task
+                    currentEditingTask?.let {
+                        it.name = taskName
+                        it.detail = taskDetail
+                        it.startDate = taskStartDate
+                        it.endDate = taskEndDate
+                        viewModel.updateTask(it)
+                    }
+                    currentEditingTask = null // Reset currentEditingTask after update
                 }
-                currentEditingTask = null // Reset currentEditingTask after update
+
+                // Clear input fields
+                binding.taskNameET.text.clear()
+                binding.taskDetailET.text.clear()
+                // Clear other input fields if necessary
+
             }
 
-            // Clear input fields
-            binding.editTextTask.text.clear()
-            // Clear other input fields if necessary
 
         }
     }

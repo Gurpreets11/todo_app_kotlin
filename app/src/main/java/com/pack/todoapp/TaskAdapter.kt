@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pack.todoapp.databinding.ItemTaskBinding
 
-
 class TaskAdapter(private var tasks: List<Task>, private val onDelete: (Task, Boolean) -> Unit) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 

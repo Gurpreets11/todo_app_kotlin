@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.pack.todoapp.MainViewModel" />
@@ -11,36 +12,87 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="10dp">
 
-        <EditText
-            android:id="@+id/editTextTask"
-            android:layout_width="0dp"
+
+        <TextView
+            android:id="@+id/newTaskTV"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter a new task"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text="Add New Task"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/addTaskLL"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Task"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTask"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:background="@drawable/layout_bg"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newTaskTV">
+
+            <EditText
+                android:id="@+id/taskNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="Enter a new task"
+                android:maxLength="40"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/taskDetailET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="Enter task detail"
+                android:maxLength="100" />
+
+            <Button
+                android:id="@+id/buttonAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="10dp"
+                android:text="Add Task" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/taskListTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text="Add New Task"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addTaskLL" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/buttonAdd"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/taskListTV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
