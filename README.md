@@ -35,4 +35,4 @@ Feel free to fork the repository, create a pull request, or open an issue if you
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 
-Now it should display the correct content without any breaks after the installation section. Let me know if you need further modifications!
+
